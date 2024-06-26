@@ -3,15 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Cars
+  - Player1
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Cars
   - Water
   - UI
-  - 
+  - Player1
   - 
   - 
   - 

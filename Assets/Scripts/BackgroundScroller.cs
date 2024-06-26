@@ -13,9 +13,10 @@ public class BackgroundScroller : MonoBehaviour
 
     void Start()
     {
+        // Tworzenie początkowych elementów tła
         for (int i = 0; i < initialBackgrounds; i++)
         {
-            Vector3 spawnPosition = new Vector3(0, i * backgroundHeight, 0);
+            Vector3 spawnPosition = new Vector3(0, i * backgroundHeight, 0); // Pozycja początkowa
             GameObject background = Instantiate(backgroundPrefab, spawnPosition, Quaternion.identity);
             background.transform.SetParent(transform);
             backgrounds.Add(background);
@@ -24,12 +25,14 @@ public class BackgroundScroller : MonoBehaviour
 
     void Update()
     {
+        // Przesuwanie wszystkich elementów tła w dół
         foreach (GameObject background in backgrounds)
         {
             background.transform.position += Vector3.down * scrollSpeed * Time.deltaTime;
         }
 
-        if (backgrounds[0].transform.position.y < -backgroundHeight)
+        // Sprawdzanie, czy pierwszy element tła wyszedł poza ekran i recykling tła
+        if (backgrounds[0].transform.position.y < -10f) // Zmieniono granicę na -10
         {
             RecycleBackground();
         }
@@ -37,10 +40,12 @@ public class BackgroundScroller : MonoBehaviour
 
     void RecycleBackground()
     {
+        // Usunięcie pierwszego elementu tła
         GameObject oldBackground = backgrounds[0];
         backgrounds.RemoveAt(0);
 
-        float newYPosition = backgrounds[backgrounds.Count - 1].transform.position.y + backgroundHeight;
+        // Przemieszczenie usuniętego elementu na nową pozycję na górze
+        float newYPosition = 15f;
         oldBackground.transform.position = new Vector3(0, newYPosition, 0);
         backgrounds.Add(oldBackground);
     }
