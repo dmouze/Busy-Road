@@ -9,6 +9,7 @@ public class CarMovement : MonoBehaviour
     public bool moveDown; // True, jeśli samochód ma zjeżdżać w dół, false jeśli ma jechać do góry
     private CalculatePoints calculatePoints;
 
+    private GameObject player;
     public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;
@@ -18,6 +19,8 @@ public class CarMovement : MonoBehaviour
     {
         Debug.Log("Car initialized at position: " + transform.position + " with moveDown: " + moveDown);
         calculatePoints = GameObject.FindObjectOfType<CalculatePoints>();
+
+        player = GameObject.FindGameObjectWithTag("Player1");
     }
 
     void Update()
@@ -49,13 +52,20 @@ public class CarMovement : MonoBehaviour
         }
         
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player1"))
-        {
-            Debug.Log("Collision detected with player!");
-            //ToDo: Dodaj tutaj logikę obsługi kolizji, np. kończenie gry
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Restart sceny
+    // private void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     if (collision.gameObject.CompareTag("Player1"))
+    //     {
+    //         Debug.Log("Collision detected with player!");
+    //         //ToDo: Dodaj tutaj logikę obsługi kolizji, np. kończenie gry
+    //         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Restart sceny
+    //     }
+    // }
+
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.tag == "Player1") {
+            Destroy(player.gameObject);
         }
     }
 }
