@@ -8,15 +8,30 @@ public class CalculatePoints : MonoBehaviour
     public int points;
     public TextMeshProUGUI pointsOnScreen;
 
+    private void Start()
+    {
+        StartCoroutine(AddPointsOverTime());
+    }
+
     private void Update()
     {
-        // Aktualizacja wyœwietlania punktów na ekranie
+        // Aktualizacja wyÅ›wietlania punktÃ³w na ekranie
         pointsOnScreen.text = points.ToString();
     }
 
     public void AddPoints()
     {
-        // Dodawanie punktów
+        // Dodawanie punktÃ³w
+        points++;
         pointsOnScreen.text = points.ToString();
+    }
+
+    private IEnumerator AddPointsOverTime()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f); // Dodaj punkt co sekundÄ™
+            AddPoints();
+        }
     }
 }
